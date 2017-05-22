@@ -33,7 +33,7 @@ class Cycle:
 	def parcour(self):
 		# We assume a new, empty state the same size
 		self.nextState = None
-		self.nextState = [[0 for y in range(self.num_cols)] for x in range(self.num_rows)]
+		self.nextState = [[0 for y in range(self.num_rows)] for x in range(self.num_cols)]
 		for y, row in enumerate(self.prevState):
 			for x, cell in enumerate(row):
 				"""
