@@ -22,13 +22,12 @@ class Cycle:
 			pass
 
 	def loadStateFromFile(self):
-		with open(self.stateFile, 'rb') as csvfile:
-			readerObject = csv.reader(csvfile, delimiter=' ')
-			for rowString in readerObject:
-				rowList = string.split(rowString[0], ',')
-				if self.num_cols == 0: self.num_cols = len(rowList)
+		with open(self.stateFile, 'r') as csvfile:
+			readerObject = csv.reader(csvfile, delimiter=',')
+			for row in readerObject:
+				if self.num_cols == 0: self.num_cols = len(row)
 				self.num_rows += 1
-				self.prevState.append(map(int, rowList))
+				self.prevState.append(map(int, row))
 
 	def parcour(self):
 		# We assume a new, empty state the same size
