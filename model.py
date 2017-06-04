@@ -10,28 +10,33 @@ class Cell:
 
     def next_state(self):
 
-        # death by isolation
-        if self.active_neighbors() <= 2:
+        # Any live cell with fewer than two live neighbours dies, as
+        # if caused by underpopulation.
+        if self.active and self.active_neighbors() < 2:
             return False
 
-        # keep on truckin'
-        if self.active and self.active_neighbors() == 2 \
-           or self.active_neighbors() == 3:
+        # Any live cell with two or three live neighbours lives on to
+        # the next generation.
+        if self.active and (self.active_neighbors() == 3 or
+                            self.active_neighbors() == 2):
             return True
 
-        # death by crowding
+        # Any live cell with more than three live neighbours dies, as
+        # if by overpopulation.
         if self.active and self.active_neighbors() > 3:
             return False
 
-        # be born!
+        # Any dead cell with exactly three live neighbours becomes a
+        # live cell, as if by reproduction.
         if not self.active and self.active_neighbors() == 3:
             return True
 
     def active_neighbors(self):
-        return sum([1 if n.active else 0 for n in self.u.g.neighbors(self)])
+        return sum([1 if n.active else 0
+                    for n in self.u.g.neighbors(self)])
 
     def __repr__(self):
-        return 'x' if self.active else ' '
+        return str(self.active_neighbors())
 
 
 class Universe:
@@ -57,6 +62,9 @@ class Universe:
                 for i in [x-1, x, x+1 if x+1 < self.width else -1]:
                     for j in [y-1, y, y+1 if y+1 < self.height else -1]:
                         self.g.add_edge(cell, self.grid[j][i])
+
+        # remove self loops from graph
+        self.g.remove_edges_from(self.g.selfloop_edges())
 
 
 def randomized_grid(width, height):
