@@ -12,7 +12,14 @@ blinker = [[False, False, False, False, False],
            [False, False, True, False, False],
            [False, False, False, False, False]]
 
-#u = Universe(blinker)
+block = [[False, False, False, False, False],
+         [False, False, True, True, False],
+         [False, False, True, True, False],
+         [False, False, False, False, False],
+         [False, False, False, False, False]]
+
+
+u = Universe(blinker)
 
 for t in range(30):
     pprint(u.grid)
