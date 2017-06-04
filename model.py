@@ -33,18 +33,15 @@ class Cell:
     def __repr__(self):
         return 'x' if self.active else ' '
 
-from pprint import pprint
 
 class Universe:
 
     def __init__(self, init_grid=None):
-        """ mask can be a grid of booleans """
+        """ init_grid must be a grid of booleans """
 
         self.height = len(init_grid)
         self.width = len(init_grid[0])
-#        print "u%sx%s" % (self.width, self.height)
 
-#        pprint(init_grid)
         self.grid = [[Cell(self, c) for c in row]
                      for row in init_grid]
 
@@ -54,15 +51,11 @@ class Universe:
     def tangle(self):
         """ creates edges in network, connects neighbors together """
         for x in range(self.width):
-#            print "X=", x
             for y in range(self.height):
-#                print "Y=", y
                 cell = self.grid[y][x]
                 # connect to neighborhood
                 for i in [x-1, x, x+1 if x+1 < self.width else -1]:
                     for j in [y-1, y, y+1 if y+1 < self.height else -1]:
-#                        print j,i
-#                        print self.grid[j][i].active
                         self.g.add_edge(cell, self.grid[j][i])
 
 
