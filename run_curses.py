@@ -1,6 +1,14 @@
 import curses
 from time import sleep
 from model import Universe, randomized_grid
+import argparse
+
+parser = argparse.ArgumentParser(
+    description='Curses version of Conway\'s Game of Life. Enjoy!')
+parser.add_argument('--width', help='Universe width', type=int, default=80)
+parser.add_argument('--height', help='Universe height.', type=int, default=22)
+parser.add_argument('--bpm', help='Beats per minute', type=float, default=120)
+args = parser.parse_args()
 
 
 class simulation:
@@ -40,11 +48,10 @@ def main(stdscr):
     stdscr.nodelay(1)
 
     s = simulation(stdscr,
-                   Universe(randomized_grid(80, 24)))
+                   Universe(randomized_grid(args.width, args.height)))
 
     # initialize main loop
-    bpm = 120
-    delay = 60.0 / bpm
+    delay = 60.0 / args.bpm
 
     while True:
 
