@@ -1,7 +1,24 @@
 # Conway's Game of Life in Python
 
-I wanted to learn Python so my good friend [Rodrigo García](https://github.com/rgarcia-herrera) suggested that I write Conway's Game of Life as a means to get a grip on the data types, structures and so on.
+[model.py] holds the cell and universe classes that describe the
+cellular automata.
 
-Python is beautiful and I had a lot of fun writing this!
+[run_curses.py] uses ncurses for a nice console rendering of the
+simulation.
 
-CLI-only.
+	usage: run_curses.py [-h] [--width WIDTH] [--height HEIGHT] [--bpm BPM]
+						 [--init INIT]
+
+	Curses version of Conway's Game of Life. Enjoy!
+
+	optional arguments:
+	  -h, --help       show this help message and exit
+	  --width WIDTH    Universe width
+	  --height HEIGHT  Universe height.
+	  --bpm BPM        Beats per minute
+	  --init INIT      CSV initial state
+
+
+Try, for example, the included "gun.csv".
+
+<img src="curses_gun.png">
