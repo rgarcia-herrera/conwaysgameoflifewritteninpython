@@ -1,9 +1,9 @@
 # Conway's Game of Life in Python
 
-[model.py] holds the cell and universe classes that describe the
+[model.py](model.py) holds the cell and universe classes that describe the
 cellular automata.
 
-[run_curses.py] uses ncurses for a nice console rendering of the
+[run_curses.py](run_curses.py) uses ncurses for a nice console rendering of the
 simulation.
 
 	usage: run_curses.py [-h] [--width WIDTH] [--height HEIGHT] [--bpm BPM]
