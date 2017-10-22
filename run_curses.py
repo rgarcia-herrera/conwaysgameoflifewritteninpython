@@ -2,12 +2,15 @@ import curses
 from time import sleep
 from model import Universe, randomized_grid
 import argparse
+import csv
 
 parser = argparse.ArgumentParser(
     description='Curses version of Conway\'s Game of Life. Enjoy!')
 parser.add_argument('--width', help='Universe width', type=int, default=80)
 parser.add_argument('--height', help='Universe height.', type=int, default=22)
 parser.add_argument('--bpm', help='Beats per minute', type=float, default=120)
+parser.add_argument('--init', help='CSV initial state',
+                    type=argparse.FileType('r'))
 args = parser.parse_args()
 
 
@@ -47,8 +50,18 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLUE)
     stdscr.nodelay(1)
 
+    if args.init:
+        u = []
+        reader = csv.reader(args.init)
+        for row in reader:
+            bool_row = [True if n == '1' else False
+                        for n in row]
+            u.append(bool_row)
+    else:
+        u = randomized_grid(args.width, args.height)
+
     s = simulation(stdscr,
-                   Universe(randomized_grid(args.width, args.height)))
+                   Universe(u))
 
     # initialize main loop
     delay = 60.0 / args.bpm
